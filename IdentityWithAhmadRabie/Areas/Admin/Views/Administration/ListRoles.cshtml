@@ -1,0 +1,68 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using IdentityWithAhmadRabie.Models
+@using Microsoft.EntityFrameworkCore
+@inject UserManager<AppUser> _userManger
+
+
+@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+@{
+    ViewData["Title"] = "List oF Roles";
+}
+
+    <h1> @ViewData["Title"]</h1>
+
+<h5>
+    <a asp-area="Admin" asp-controller="Administration" asp-action="CreateRole"> Create Role</a>
+</h5>
+
+<div class="container">
+    <div class="row">
+
+        @if (Model.Any())
+        {
+            @foreach (var Role in Model)
+            {<div class="card col-md-5 m-md-2  p-0">
+
+                    <div class="card-header">
+                        Role Namae
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">@Role.Name</h5>
+                        <input type="hidden" asp-for="@Role.Id" />
+                    </div>
+
+                    <div class="card-footer">
+                        <a asp-action="Edit" asp-controller="Administration" asp-area="Admin" asp-route-Id="@Role.Id" class="card-link btn btn-outline-info">Edit</a>
+                        <!-- test 1-->
+                        @*@foreach (var user in await _userManger.Users.ToListAsync())
+        {
+            @if (!await _userManger.IsInRoleAsync(user, Role.Name))
+            {
+                <a asp-action="Delete" asp-controller="Administration" asp-area="Admin" asp-route-Id="@Role.Id" class="card-link">Delete</a>
+                break;
+            }
+
+        }*@
+
+                        <!-- test 2-->
+                        @{
+                            var users = await _userManger.GetUsersInRoleAsync(Role.Name);
+                        }
+                        @if (users.Count() <= 0)
+                        {
+
+                            <a class="btn btn-outline-danger" asp-action="Delete" asp-controller="Administration" asp-area="Admin" asp-route-Id="@Role.Id" class="card-link">Delete</a>
+                            <span class="text-info float-right"> User Count = @users.Count</span>
+                        }
+
+                    </div>
+                </div>
+
+            }
+
+        }
+
+    </div>
+</div>
+

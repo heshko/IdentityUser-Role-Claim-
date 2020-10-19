@@ -1,0 +1,32 @@
+﻿@model IdentityWithAhmadRabie.Areas.Admin.Models.UserClaimViewModel
+@{
+    ViewData["Title"] = "Manage User Claim";
+}
+
+<h1>Manage User Claim</h1>
+
+<div class="container">
+    <div class="row">
+        <form method="post">
+            <div class="card p-0">
+                <div class="card-header">
+                    <h5>Manage User Claim</h5>
+                    <input type="hidden" asp-for="@Model.Id" />
+                </div>
+                <div class="card-header">
+                  @for (int i = 0; i < Model.Claims.Count; i++)
+                  {
+                      <div class="form-check">
+                         <input asp-for="@Model.Claims[i].IsSelected" class="form-check-input" />
+                          <input  asp-for="@Model.Claims[i].ClaimType" type="hidden" />
+                          <label asp-for="@Model.Claims[i].ClaimType" class="form-check-label">@Model.Claims[i].ClaimType</label>
+                      </div>
+                  }
+                </div>
+                <div class="card-header">
+                    <button type="submit" class="btn btn-info">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

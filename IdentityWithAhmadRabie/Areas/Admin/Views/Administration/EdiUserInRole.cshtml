@@ -1,0 +1,63 @@
+﻿@model List<IdentityWithAhmadRabie.Areas.Admin.Models.UserRoleViewModel>
+@{
+    ViewData["Title"] = "EdiUserInRole";
+}
+
+<h1>EdiUserInRole</h1>
+
+<h5>@ViewBag.RoleName</h5>
+
+<div class="container">
+    <div class="row">
+        <div class="card col-md-6 m-md-2  p-0">
+            <form method="post" >
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Add or Remove Users in @ViewBag.RoleName</h2>
+                    </div>
+
+                    <div class="card-body">
+
+
+                        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <div class="form-check m-1">
+                <input asp-for="@Model[i].UserName" type="hidden" />
+                <input asp-for="@Model[i].UserId" type="hidden" />
+                <input asp-for="@Model[i].isSelected" class="form-check-input" />
+                <label class="form-check-label" asp-for="@Model[i].isSelected">
+                    @Model[i].UserName
+                </label>
+            </div>
+        }
+             
+
+                        <!--with forech dont work !!!!!!!!!!!!!!-->
+                        @*@foreach (var item in Model)
+                        {
+                            <div class="form-check m-1">
+                                <input asp-for="@item.UserName" type="hidden" />
+                                <input asp-for="@item.UserId" type="hidden" />
+                                <input asp-for="@item.isSelected" class="form-check-input" />
+                                <label class="form-check-label" asp-for="@item.isSelected">
+                                    @item.UserName
+                                </label>
+                            </div>
+                        }*@
+
+                    </div>
+
+                    <div class="card-footer">
+
+                        <button type="submit"  class="btn btn-outline-info">Update</button>  
+                        <a  asp-action="ListRoles" asp-area="Admin" asp-controller="Administration">Cancel</a>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
